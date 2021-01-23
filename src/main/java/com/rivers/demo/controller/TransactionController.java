@@ -1,0 +1,71 @@
+package com.rivers.demo.controller;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.rivers.demo.constant.StatementDurationType;
+import com.rivers.demo.constant.TransactionType;
+import com.rivers.demo.entity.Transaction;
+import com.rivers.demo.model.TransactionPayload;
+import com.rivers.demo.service.TransactionService;
+
+@RestController
+@RequestMapping(value = "/api/v1/transaction")
+public class TransactionController {
+	@Autowired
+	private TransactionService transactionService;
+
+	@PostMapping
+	public ResponseEntity<Void> saveTransaction(@RequestBody TransactionPayload transactionRequest) {
+		transactionService.saveTransaction(transactionRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/statement/{statementDurationType}/{statementDuration}")
+	public ResponseEntity<Page<Transaction>> getTransactions(
+			@PathVariable("statementDurationType") StatementDurationType statementDurationType,
+			@PathVariable("statementDuration") long statementDuration,
+			@RequestParam(name = "transactionType", required = false) String transactionType,
+			@PageableDefault(page = 0, size = 5) @SortDefault.SortDefaults(@SortDefault(sort = "transactionTs", direction = Sort.Direction.DESC)) Pageable pageable) {
+
+		List<String> types = new ArrayList<>();
+		if (transactionType == null || transactionType.isEmpty()) {
+			TransactionType[] transactionTypes = TransactionType.values();
+			for (TransactionType tt : transactionTypes) {
+				types.add(tt.toString());
+			}
+		} else {
+			types.add(TransactionType.valueOf(transactionType).toString());
+		}
+		return ResponseEntity
+				.ok(transactionService.getTransactions(statementDuration, statementDurationType, types, pageable));
+	}
+
+	@GetMapping("/statement-range")
+	public ResponseEntity<Page<Transaction>> getTransations(@RequestParam("from") String from,
+			@RequestParam("to") String to,
+			@PageableDefault(page = 0, size = 5) @SortDefault.SortDefaults(@SortDefault(sort = "transactionTs", direction = Sort.Direction.DESC)) Pageable pageable) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate fromLocalDate = LocalDate.parse(from, formatter);
+		LocalDate toLocalDate = LocalDate.parse(to, formatter);
+		return ResponseEntity.ok(transactionService.getTransactions(fromLocalDate, toLocalDate, pageable));
+	}
+
+}
