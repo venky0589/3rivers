@@ -16,8 +16,8 @@ import com.rivers.demo.entity.Account;
 import com.rivers.demo.entity.Transaction;
 import com.rivers.demo.entity.User;
 import com.rivers.demo.repository.UserRepository;
-//@EnableKafka
-//@Configuration
+@EnableKafka
+@Configuration
 public class KafkaConfiguration {
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {

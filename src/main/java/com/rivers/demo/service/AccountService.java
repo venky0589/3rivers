@@ -7,4 +7,7 @@ public interface AccountService {
     void saveAccount(Account account);
 
     void updateBalance(Transaction ts);
+
+    Account getBalance(String accountNumber);
+
 }
