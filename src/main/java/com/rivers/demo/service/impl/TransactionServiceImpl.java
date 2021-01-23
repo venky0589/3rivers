@@ -34,11 +34,13 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public Page<Transaction> getTransactions(String accountNumber, LocalDate from, LocalDate to, Pageable pageable) {
+	public Page<Transaction> getTransactions(String accountNumber, LocalDate from, LocalDate to,
+			List<String> transactionType, Pageable pageable) {
 		LocalDateTime fromLocalDateTime = from.atStartOfDay();
 		LocalDateTime toLocalDateTime = to.atTime(23, 59, 59, 999);
 		System.out.println("From: " + fromLocalDateTime + " To: " + toLocalDateTime);
-		return transactionRepository.findTransactions(accountNumber, fromLocalDateTime, toLocalDateTime, pageable);
+		return transactionRepository.findTransactions(accountNumber, fromLocalDateTime, toLocalDateTime,
+				transactionType, pageable);
 	}
 
 	@Override

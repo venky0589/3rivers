@@ -39,10 +39,14 @@ public class TransactionController {
 	}
 
 	@GetMapping("/statement/{accountNumber}/{statementDurationType}/{statementDuration}")
-	public ResponseEntity<Page<Transaction>> getTransactions(@PathVariable String accountNumber,
-			@PathVariable StatementDurationType statementDurationType, @PathVariable long statementDuration,
+	public ResponseEntity<Page<Transaction>> getTransactions(
+	// @formatter:off
+			@PathVariable String accountNumber,
+			@PathVariable StatementDurationType statementDurationType, 
+			@PathVariable long statementDuration,
 			@RequestParam(name = "transactionType", required = false) String transactionType,
 			@PageableDefault(page = 0, size = 5) @SortDefault.SortDefaults(@SortDefault(sort = "transactionTs", direction = Sort.Direction.DESC)) Pageable pageable) {
+	// @formatter:on
 		List<String> types = new ArrayList<>();
 		if (transactionType == null || transactionType.isEmpty()) {
 			TransactionType[] transactionTypes = TransactionType.values();
@@ -57,14 +61,28 @@ public class TransactionController {
 	}
 
 	@GetMapping("/statement-range")
-	public ResponseEntity<Page<Transaction>> getTransations(@RequestParam("accountNumber") String accountNumber,
-			@RequestParam("from") String from, @RequestParam("to") String to,
+	public ResponseEntity<Page<Transaction>> getTransations(
+	// @formatter:off
+			@RequestParam("accountNumber") String accountNumber,
+			@RequestParam("from") String from, 
+			@RequestParam("to") String to,
+			@RequestParam(name = "transactionType", required = false) String transactionType,
 			@PageableDefault(page = 0, size = 5) @SortDefault.SortDefaults(@SortDefault(sort = "transactionTs", direction = Sort.Direction.DESC)) Pageable pageable) {
+	// @formatter:on
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		LocalDate fromLocalDate = LocalDate.parse(from, formatter);
 		LocalDate toLocalDate = LocalDate.parse(to, formatter);
+		List<String> types = new ArrayList<>();
+		if (transactionType == null || transactionType.isEmpty()) {
+			TransactionType[] transactionTypes = TransactionType.values();
+			for (TransactionType tt : transactionTypes) {
+				types.add(tt.toString());
+			}
+		} else {
+			types.add(TransactionType.valueOf(transactionType).toString());
+		}
 		return ResponseEntity
-				.ok(transactionService.getTransactions(accountNumber, fromLocalDate, toLocalDate, pageable));
+				.ok(transactionService.getTransactions(accountNumber, fromLocalDate, toLocalDate, types, pageable));
 	}
 
 }
