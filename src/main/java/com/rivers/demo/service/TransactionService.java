@@ -13,8 +13,8 @@ import com.rivers.demo.model.TransactionPayload;
 public interface TransactionService {
 	void saveTransaction(TransactionPayload transactionPayload);
 
-	Page<Transaction> getTransactions(LocalDate from, LocalDate to, Pageable pageable);
+	Page<Transaction> getTransactions(String accountNumber, LocalDate from, LocalDate to, Pageable pageable);
 
-	Page<Transaction> getTransactions(long statementDuration, StatementDurationType statementDurationType,
-			List<String> transactionType, Pageable pageable);
+	Page<Transaction> getTransactions(String accountNumber, long statementDuration,
+			StatementDurationType statementDurationType, List<String> transactionType, Pageable pageable);
 }

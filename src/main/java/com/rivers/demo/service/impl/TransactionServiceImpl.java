@@ -34,16 +34,16 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public Page<Transaction> getTransactions(LocalDate from, LocalDate to, Pageable pageable) {
+	public Page<Transaction> getTransactions(String accountNumber, LocalDate from, LocalDate to, Pageable pageable) {
 		LocalDateTime fromLocalDateTime = from.atStartOfDay();
 		LocalDateTime toLocalDateTime = to.atTime(23, 59, 59, 999);
 		System.out.println("From: " + fromLocalDateTime + " To: " + toLocalDateTime);
-		return transactionRepository.findTransactions(fromLocalDateTime, toLocalDateTime, pageable);
+		return transactionRepository.findTransactions(accountNumber, fromLocalDateTime, toLocalDateTime, pageable);
 	}
 
 	@Override
-	public Page<Transaction> getTransactions(long statementDuration, StatementDurationType statementDurationType,
-			List<String> transactionType, Pageable pageable) {
+	public Page<Transaction> getTransactions(String accountNumber, long statementDuration,
+			StatementDurationType statementDurationType, List<String> transactionType, Pageable pageable) {
 		LocalDate toDay = LocalDate.now();
 		LocalDate from;
 		// If user passes statementDuration 0 or 1 we get current day/month/year
@@ -70,6 +70,6 @@ public class TransactionServiceImpl implements TransactionService {
 			throw new RuntimeException("Invalid StatementDuration");
 		}
 		System.out.println("Getting statement from  " + from + " to " + toDay);
-		return transactionRepository.findTransactions(from, transactionType, pageable);
+		return transactionRepository.findTransactions(accountNumber, from, transactionType, pageable);
 	}
 }
