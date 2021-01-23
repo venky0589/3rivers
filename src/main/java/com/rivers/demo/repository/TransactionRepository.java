@@ -1,5 +1,6 @@
 package com.rivers.demo.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface TransactionRepository extends MongoRepository<Transaction, Long
 
 //	@Query("{'transactionTs': {$gte: ?0}}")
 	@Query("{$and : [{'transactionTs': {$gte: ?0}}, {'type': {$in: ?1}}]}")
-	Page<Transaction> findTransactions(LocalDateTime from, List<String> transactionType, Pageable pageable);
+	Page<Transaction> findTransactions(LocalDate from, List<String> transactionType, Pageable pageable);
 }

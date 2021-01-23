@@ -2,8 +2,6 @@ package com.rivers.demo.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -38,9 +36,8 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Page<Transaction> getTransactions(LocalDate from, LocalDate to, Pageable pageable) {
 		LocalDateTime fromLocalDateTime = from.atStartOfDay();
-		LocalDateTime toLocalDateTime = to.atStartOfDay();
-		System.out.println("From: " + fromLocalDateTime);
-		System.out.println("To: " + toLocalDateTime);
+		LocalDateTime toLocalDateTime = to.atTime(23, 59, 59, 999);
+		System.out.println("From: " + fromLocalDateTime + " To: " + toLocalDateTime);
 		return transactionRepository.findTransactions(fromLocalDateTime, toLocalDateTime, pageable);
 	}
 
@@ -57,7 +54,6 @@ public class TransactionServiceImpl implements TransactionService {
 		} else {
 			statementDuration = statementDuration - 1;
 		}
-
 		switch (statementDurationType) {
 		case DAYS:
 			from = toDay.minusDays(statementDuration);
@@ -74,8 +70,6 @@ public class TransactionServiceImpl implements TransactionService {
 			throw new RuntimeException("Invalid StatementDuration");
 		}
 		System.out.println("Getting statement from  " + from + " to " + toDay);
-		System.out.println(from.atStartOfDay());
-		System.out.println(transactionType);
-		return transactionRepository.findTransactions(from.atStartOfDay(), transactionType, pageable);
+		return transactionRepository.findTransactions(from, transactionType, pageable);
 	}
 }

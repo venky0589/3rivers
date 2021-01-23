@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rivers.demo.constant.TransactionType;
 
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Transaction {
 	@Id
 	private long id;
 	private String accountNumber;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
 	private LocalDateTime transactionTs;
 	private TransactionType type;
 	private Double amount;
