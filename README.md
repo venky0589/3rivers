@@ -70,18 +70,19 @@ $ java -jar <jar-filename>
 ### Account Service API
 ```bash
 # Check account balance
-$ curl http://localhost:8080/api/v1/account/check-balance/{accountNumber}
+$ curl "http://localhost:8080/api/v1/account/check-balance/{accountNumber}"
 ```
 
 ### Transaction Service API
 ```bash
 # Get last 'n' DAYS or MONTHS or YEARS transactions of an account
 # Here transactionType request parameter is optional
-$ curl http://localhost:8080/api/v1/transaction/statement/{accountNumber}/{DAYS/MONTHS/YEARS}/{n}?transactionType={DEPOSIT/WITHDRAW}
+$ curl "http://localhost:8080/api/v1/transaction/statement/{accountNumber}/{DAYS/MONTHS/YEARS}/{n}?transactionType={DEPOSIT/WITHDRAW}"
 
 # Get Transactions in given date range of an account
 # Date format yyyyMMdd Ex: 20210125
 # Here transactionType request parameter is optional
-$ curl http://localhost:8080/api/v1/transaction/statement-range?accountNumber={accountNumber}&from={fromDate}&to={toDate}&transactionType={DEPOSIT/WITHDRAW}
+$ curl "http://localhost:8080/api/v1/transaction/statement-range?accountNumber={accountNumber}&from={fromDate}&to={toDate}&transactionType={DEPOSIT/WITHDRAW}"
 ```
+
 
