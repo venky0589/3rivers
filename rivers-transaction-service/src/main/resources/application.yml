@@ -3,7 +3,7 @@ server:
   
 spring:
   application:
-    name: rivers-transaction-service
+    name: threerivers-transaction-service
   jackson:
     serialization:
       indent-output: true

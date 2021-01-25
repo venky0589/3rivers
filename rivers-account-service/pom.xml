@@ -73,7 +73,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>rivers-account-service</finalName>
+		<finalName>threerivers-account-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

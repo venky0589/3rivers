@@ -52,6 +52,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>threerivers-gateway-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

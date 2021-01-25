@@ -72,7 +72,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>rivers-transaction-service</finalName>
+		<finalName>threerivers-transaction-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

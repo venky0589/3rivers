@@ -3,16 +3,16 @@ server:
   
 spring:
   application:
-    name: rivers-gateway-service
+    name: threerivers-gateway-service
   cloud:
     gateway:
       routes:
-        - id: rivers-transaction-service
-          uri:  lb://rivers-transaction-service
+        - id: threerivers-transaction-service
+          uri:  lb://threerivers-transaction-service
           predicates:
             - Path=/api/v1/transaction/**
-        - id: rivers-account-service
-          uri:  lb://rivers-account-service
+        - id: threerivers-account-service
+          uri:  lb://threerivers-account-service
           predicates:
             - Path=/api/v1/account/**
       

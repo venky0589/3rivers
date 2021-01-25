@@ -43,7 +43,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>rivers-eureka-server</finalName>
+		<finalName>threerivers-eureka-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
