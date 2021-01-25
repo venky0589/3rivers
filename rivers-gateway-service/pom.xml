@@ -8,11 +8,11 @@
 		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rivers</groupId>
-	<artifactId>rivers-gateway-service</artifactId>
+	<groupId>com.threerivers</groupId>
+	<artifactId>threerivers-gateway-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rivers-gateway-service</name>
-	<description>Demo project for Spring Boot</description>
+	<name>threerivers-gateway-service</name>
+	<description>threerivers load balancer</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.0</spring-cloud.version>

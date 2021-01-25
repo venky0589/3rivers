@@ -9,11 +9,11 @@
 		<version>2.4.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rivers</groupId>
-	<artifactId>rivers-eureka-server</artifactId>
+	<groupId>com.threerivers</groupId>
+	<artifactId>threerivers-eureka-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rivers-eureka-server</name>
-	<description>Demo project for Spring Boot</description>
+	<name>threerivers-eureka-server</name>
+	<description>Eureka server embedded</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.0</spring-cloud.version>
