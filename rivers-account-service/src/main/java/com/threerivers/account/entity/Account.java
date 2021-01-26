@@ -15,6 +15,7 @@ import javax.persistence.Version;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Account {
 	@NaturalId
 	@Column(name = "account_number", length = 25)
 	private String accountNumber;
+	@UpdateTimestamp
 	@Column(name = "last_update_timestamp")
 	private LocalDateTime lastUpdateTimestamp;
 	@Column(name = "balance")
